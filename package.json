@@ -1,0 +1,23 @@
+{
+  "name": "todolist",
+  "version": "1.0.0",
+  "description": "Studying node via application dev.",
+  "main": "app.js",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "test",
+    "node"
+  ],
+  "author": "Zak",
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "yargs": "^14.0.0"
+  }
+}
