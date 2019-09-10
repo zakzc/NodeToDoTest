@@ -1,6 +1,7 @@
 'esversion: 6';
 'use strict';
 // const log = require("./myLog.js");
+
 const chalk = require('chalk')
 // const argv = require('yargs').argv;
 const yargs = require('yargs');
@@ -11,17 +12,21 @@ yargs.command({
   builder: {
     name: {
       describe: 'nome',
-      demandOption : true,
-      type : 'string'
+      demandOption: true,
+      type: 'string'
     },
-    description : {
+    description: {
       describe: 'descrição',
-      demandOption : true,
-      type : 'string'
+      demandOption: true,
+      type: 'string'
     }
   },
   handler: (argv) => {
-    console.log(chalk.blue("Adicionando tarefas")),
+    const info = chalk.green.bold.inverse("Criando nova tarefa: ");
+    console.log(info);
+    console.log('Nome: ${argv.name}');
+    console.log('Description:${argv.description}');
+    console.log(argv.description);
     console.log(argv);
   }
 });
@@ -44,12 +49,11 @@ yargs.command({
   }
 });
 
-console.log("\n- - - - - - - - - - - -");
+console.log("- - - - - - - - - - - -");
 console.log(yargs.argv);
-console.log("- - - - - - - - - - - -\n");
-
+console.log("- - - - - - - - - - - -");
 // yargs.parse();
 
-
 // log("Primeira Mensagem de Log.");
+
 // log("Segunda Mensagem de Log.");
