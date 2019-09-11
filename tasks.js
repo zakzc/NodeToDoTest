@@ -47,22 +47,36 @@ const addTask = function(name, description) {
 
 const listTasks = function() {
   console.log(chalk.blue.bold("lista de tarefas"));
-  const tasks = loadAllTasks();
-  return tasks;
+  const mytasks = loadAllTasks();
+  return JSON.stringify(mytasks, null, 2);
 };
 
 const removeTask = function(name) {
   const tasks = loadAllTasks();
   const taskstokeep = tasks.filter(function(tasks){
-    tasks.name !== name;
+    return tasks.name !== name;
   });
     saveTasks(taskstokeep);
     console.log(chalk.red("Tarefa de nome: ", name, " foi removida"));
+};
+
+const findTask = function(name) {
+  const tasks = loadAllTasks();
+  const tasksFound = tasks.find(function(tasks) {
+    return tasks.name === name
+  });
+  if (tasksFound != undefined) {
+    return tasksFound;
+  } else {
+    return "no tasks found";
+  }
+
 };
 
 ///////////////// Exporting module /////////////////
 module.exports = {
       addTask,
       listTasks,
-      removeTask
+      removeTask,
+      findTask
     };

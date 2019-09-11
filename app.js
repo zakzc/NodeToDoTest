@@ -2,10 +2,15 @@
 'use strict';
 // const log = require("./myLog.js");
 
-const chalk = require('chalk')
-// const argv = require('yargs').argv;
+///////////////// Imports /////////////////
+const chalk = require('chalk');
 const yargs = require('yargs');
+const tasks = require("./tasks.js");
 
+
+///////////////// Commands /////////////////
+
+////// Adding
 yargs.command({
   command: 'add',
   desc: 'Adiciona uma tarefa à todo list',
@@ -22,38 +27,65 @@ yargs.command({
     }
   },
   handler: (argv) => {
-    const info = chalk.green.bold.inverse("Criando nova tarefa: ");
-    console.log(info);
-    console.log('Nome: ${argv.name}');
-    console.log('Description:${argv.description}');
-    console.log(argv.description);
-    console.log(argv);
+    console.log(chalk.yellow("Adding task to to do list"));
+    tasks.addTask(argv.name, argv.description)
   }
 });
 
+////// Listing
 yargs.command({
   command: 'list',
-  desc: 'Lista uma tarefa à todo list',
+  desc: 'Lista as tarefas da todo list',
   // builder: (yargs) => yargs.default('value', 'true'),
   handler: (argv) => {
-    console.log(chalk.green("Listando tarefas"))
+    console.log("enviado para função");
+    console.log(tasks.listTasks());
   }
 });
 
+////// Removing
 yargs.command({
   command: 'remove',
   desc: 'Remove uma tarefa da lista',
-  // builder: (yargs) => yargs.default('value', 'true'),
+  builder: {
+    name: {
+      describe: 'Task to be deleted',
+      demandOption: true,
+      type: 'string'
+    }},
   handler: (argv) => {
-    console.log(chalk.blue("Removendo tarefas"))
+    console.log(chalk.red("Removendo tarefa: ", argv.name));
+    tasks.removeTask(argv.name);
   }
 });
 
-console.log("- - - - - - - - - - - -");
-console.log(yargs.argv);
-console.log("- - - - - - - - - - - -");
-// yargs.parse();
+// TODO: working on
+////// Reading
+yargs.command({
+  command: 'read',
+  desc: 'Lê tarefas da lista',
+  builder: {
+    name: {
+      describe: 'Task to be checked',
+      demandOption: true,
+      type: 'string'
+    }},
+  handler: (argv) => {
+    console.log(chalk.yellow('Reading tasks', argv.name));
+    const taskFound = tasks.findTask(argv.name);
+    console.log(JSON.stringify(taskFound, null, 2));
+  }
+});
 
+///////////////// Parse? /////////////////
+yargs.parse();
+
+
+// Indicate end of processing
+// console.log("- - - - - - - - - - - -");
+// console.log(" end of call");
+// console.log("- - - - - - - - - - - -");
+
+// Log function for future back up
 // log("Primeira Mensagem de Log.");
-
 // log("Segunda Mensagem de Log.");
