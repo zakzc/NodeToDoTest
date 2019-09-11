@@ -38,7 +38,6 @@ yargs.command({
   desc: 'Lista as tarefas da todo list',
   // builder: (yargs) => yargs.default('value', 'true'),
   handler: (argv) => {
-    console.log("enviado para função");
     console.log(tasks.listTasks());
   }
 });
