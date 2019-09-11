@@ -8,7 +8,7 @@ const chalk = require('chalk');
 
 ///////////////// Base functions /////////////////
 
-const loadAllTasks = function() {
+const loadAllTasks = () => {
   // ler todas as tarefas
   try {
     const taskBuffer = fs.readFileSync('tasks.json');
@@ -18,7 +18,7 @@ const loadAllTasks = function() {
   }
 };
 
-const saveTasks = function(data) {
+const saveTasks = (data) => {
   const tasksJSON = JSON.stringify(data);
   fs.writeFileSync('tasks.json', tasksJSON);
   console.log("wrote: ", tasksJSON);
@@ -26,7 +26,7 @@ const saveTasks = function(data) {
 
 ///////////////// Exports /////////////////
 
-const addTask = function(name, description) {
+const addTask = (name, description) => {
   const tasks = loadAllTasks();
   const duplicatedTasks = tasks.find(function(task) {
       return task.name == name
@@ -45,13 +45,13 @@ const addTask = function(name, description) {
     }
 };
 
-const listTasks = function() {
+const listTasks = () => {
   console.log(chalk.blue.bold("lista de tarefas"));
   const mytasks = loadAllTasks();
   return JSON.stringify(mytasks, null, 2);
 };
 
-const removeTask = function(name) {
+const removeTask = (name) => {
   const tasks = loadAllTasks();
   const taskstokeep = tasks.filter(function(tasks){
     return tasks.name !== name;
@@ -60,7 +60,7 @@ const removeTask = function(name) {
     console.log(chalk.red("Tarefa de nome: ", name, " foi removida"));
 };
 
-const findTask = function(name) {
+const findTask = (name) => {
   const tasks = loadAllTasks();
   const tasksFound = tasks.find(function(tasks) {
     return tasks.name === name

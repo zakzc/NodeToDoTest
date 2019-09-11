@@ -59,7 +59,6 @@ yargs.command({
   }
 });
 
-// TODO: working on
 ////// Reading
 yargs.command({
   command: 'read',
@@ -82,9 +81,9 @@ yargs.parse();
 
 
 // Indicate end of processing
-// console.log("- - - - - - - - - - - -");
-// console.log(" end of call");
-// console.log("- - - - - - - - - - - -");
+console.log("- - - - - - - - - - - -");
+console.log(" end of call");
+console.log("- - - - - - - - - - - -");
 
 // Log function for future back up
 // log("Primeira Mensagem de Log.");
