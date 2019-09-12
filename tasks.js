@@ -21,7 +21,7 @@ const loadAllTasks = () => {
 const saveTasks = (data) => {
   const tasksJSON = JSON.stringify(data);
   fs.writeFileSync('tasks.json', tasksJSON);
-  console.log("wrote: ", tasksJSON);
+  console.log("wrote: ", tasksJSON, "to file.");
 };
 
 ///////////////// Exports /////////////////
@@ -72,7 +72,7 @@ const findTask = (name) => {
 };
 const updateTask = (name, status) => {
   const tasks = loadAllTasks();
-  tasks.find(function(tasks) {
+  tasks.find((tasks) => {
     if (tasks.name === name) {
       tasks.status = status;
     }
