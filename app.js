@@ -1,5 +1,6 @@
 'esversion: 6';
 'use strict';
+// for future use when integrating the log function to the project
 // const log = require("./myLog.js");
 
 ///////////////// Imports /////////////////
@@ -27,7 +28,7 @@ yargs.command({
     }
   },
   handler: (argv) => {
-    console.log(chalk.yellow("Adding task to to do list"));
+    console.log(chalk.blue.bold("Adding task to to do list"));
     tasks.addTask(argv.name, argv.description)
   }
 });
@@ -38,6 +39,7 @@ yargs.command({
   desc: 'Lista as tarefas da todo list',
   // builder: (yargs) => yargs.default('value', 'true'),
   handler: (argv) => {
+    console.log(chalk.blue.bold.inverse("lista de tarefas"));
     console.log(tasks.listTasks());
   }
 });
@@ -51,9 +53,10 @@ yargs.command({
       describe: 'Task to be deleted',
       demandOption: true,
       type: 'string'
-    }},
+    }
+  },
   handler: (argv) => {
-    console.log(chalk.red("Removendo tarefa: ", argv.name));
+    console.log(chalk.red.bold.inverse("Removendo tarefa: ", argv.name));
     tasks.removeTask(argv.name);
   }
 });
@@ -67,11 +70,35 @@ yargs.command({
       describe: 'Task to be checked',
       demandOption: true,
       type: 'string'
-    }},
+    }
+  },
   handler: (argv) => {
-    console.log(chalk.yellow('Reading tasks', argv.name));
+    console.log(chalk.blue.bold('Reading tasks', argv.name));
     const taskFound = tasks.findTask(argv.name);
     console.log(JSON.stringify(taskFound, null, 2));
+  }
+});
+
+////// Reading
+yargs.command({
+  command: 'update',
+  desc: 'Atualiza tarefas da lista',
+  builder: {
+    name: {
+      describe: 'nome',
+      demandOption: true,
+      type: 'string'
+    },
+    status: {
+      describe: 'Atualizar a tarefa',
+      demandOption: true,
+      type: 'string'
+    }
+  },
+  handler: (argv) => {
+    console.log(chalk.yellow.bold('Updating task', argv.name));
+    tasks.updateTask(argv.name, argv.status);
+    console.log(chalk.green.bold("task status with name:",  argv.name,  "was updated"));
   }
 });
 

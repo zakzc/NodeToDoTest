@@ -46,7 +46,6 @@ const addTask = (name, description) => {
 };
 
 const listTasks = () => {
-  console.log(chalk.blue.bold("lista de tarefas"));
   const mytasks = loadAllTasks();
   return JSON.stringify(mytasks, null, 2);
 };
@@ -70,7 +69,15 @@ const findTask = (name) => {
   } else {
     return "no tasks found";
   }
-
+};
+const updateTask = (name, status) => {
+  const tasks = loadAllTasks();
+  tasks.find(function(tasks) {
+    if (tasks.name === name) {
+      tasks.status = status;
+    }
+  });
+saveTasks(tasks);
 };
 
 ///////////////// Exporting module /////////////////
@@ -78,5 +85,6 @@ module.exports = {
       addTask,
       listTasks,
       removeTask,
-      findTask
+      findTask,
+      updateTask
     };
